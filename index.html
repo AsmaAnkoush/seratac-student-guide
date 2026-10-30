@@ -138,7 +138,7 @@ body.stp .stitle{font-size:clamp(24px,4vw,36px)!important}
 @media(max-width:420px){.vc{gap:7px;padding:8px}.vc .vf{padding:0 11px 0 9px!important;font-size:13px}.vt{font-size:12px}}
 @media(max-width:700px){body.stp .home-btn{position:fixed!important;top:auto!important;left:auto!important;bottom:16px;right:16px!important;margin:0!important;z-index:50;box-shadow:0 4px 0 #a51f62,0 8px 20px rgba(214,51,132,.35)!important}body.stp main{padding-bottom:80px}}
 .shots img{aspect-ratio:1400/678;height:auto;background:#f1edff;object-fit:contain}
-.mobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
+.mobs{display:flex;flex-direction:column;gap:28px;max-width:420px;margin:0 auto}
 .mobs figure{margin:0;display:flex;flex-direction:column;gap:10px}.mobs .t{min-height:3.7em}
 .mobs img{width:100%;max-width:280px;aspect-ratio:451/976;height:auto;margin:0 auto;display:block;border-radius:22px;border:6px solid #1d1f3d;background:#f1edff}
 .tabs{grid-template-columns:repeat(auto-fit,minmax(0,1fr))!important}
@@ -151,6 +151,20 @@ body.stp .stitle{font-size:clamp(24px,4vw,36px)!important}
 .devnote{margin:6px 4px 0;color:var(--muted);font-size:14px}
 .mvid .vp{max-width:340px;margin:0 auto;width:100%}.mvid video{aspect-ratio:9/16;width:100%}
 .mvid{display:block}
+/* mockup style */
+.devs{margin:18px auto 18px!important;max-width:620px!important;padding:8px!important;gap:8px!important;box-shadow:0 8px 24px rgba(43,45,132,.10)!important}
+.devs button{padding:12px 14px!important;font-size:clamp(15px,2.4vw,20px)!important;gap:12px!important}
+.devs .di{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#f1edff;color:var(--navy);font-style:normal;flex:none}
+.devs button.on .di{background:rgba(255,255,255,.22);color:#fff}
+.devs button.on{box-shadow:0 5px 0 #a51f62,0 8px 18px rgba(214,51,132,.3)!important}
+.tabs{gap:10px!important;margin:0 0 22px!important}
+.tabs button{position:relative;padding:14px 8px!important;font-size:clamp(14px,2.3vw,19px)!important;gap:12px!important;border-radius:18px!important;border:1.5px solid #e6e0fb!important;background:#fff!important}
+.tabs button.on{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+.tabs button.on:after{content:"";position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);border:11px solid transparent;border-top-color:var(--navy);border-bottom:0}
+.ti{width:42px!important;height:42px!important;background:#f1edff!important}.ti svg{width:20px!important;height:20px!important}
+.tabs button.on .ti{background:rgba(255,255,255,.18)!important}
+.shead{justify-content:center!important}body.stp .stitle{justify-content:center!important}
+@media(max-width:600px){.devs .di{width:34px;height:34px}.ti{width:30px!important;height:30px!important}.ti svg{width:15px!important;height:15px!important}.tabs button{padding:10px 4px!important;gap:6px!important}}
 </style></head><body>
 <img class="side sl" src="side-l.jpg" alt=""><div id="top"></div><main id="app"></main>
 <div class="toast" id="toast"></div>
@@ -176,7 +190,7 @@ const body=tab==='video'?vid
 :tab==='pics'?(P?`<div class="mobs">${x.mob.map((y,k)=>`<figure><div class="t"><span class="n">${ar(k+1)}</span><p>${y.text}</p></div><img loading="lazy" decoding="async" width="451" height="976" src="${y.img}" alt=""></figure>`).join('')}</div>`
 :`<div class="shots">${x.steps.map((y,k)=>`<div><div class="t"><span class="n">${ar(k+1)}</span><p>${y.text}</p></div><img loading="lazy" decoding="async" width="1400" height="678" src="${y.img}" alt=""></div>`).join('')}</div>`)
 :`<ol class="list">${(P?x.mob.map(y=>y.text):x.full).map((y,k)=>`<li><span class="n">${ar(k+1)}</span><span>${y}</span></li>`).join('')}</ol>`;
-const devs=`<div class="devs">${[['pc','على اللابتوب',DI.pc],['phone','على الجوال',DI.phone]].map(([k,t,i])=>{const off=k==='phone'&&!x.mob;return `<button class="${k===dev?'on':''} ${off?'off':''}" ${off?'disabled title="هذه الخطوة نفسها على الجوال"':''} onclick="location.hash='#/${n}/${k}/${tab}'">${i}<span>${t}</span></button>`}).join('')}</div>${!x.mob?'<p class="devnote">خطوات هذا النشاط نفسها على اللابتوب والجوال.</p>':''}`;
+const devs=`<div class="devs">${[['pc','على اللابتوب',DI.pc],['phone','على الجوال',DI.phone]].map(([k,t,i])=>{const off=k==='phone'&&!x.mob;return `<button class="${k===dev?'on':''} ${off?'off':''}" ${off?'disabled title="هذه الخطوة نفسها على الجوال"':''} onclick="location.hash='#/${n}/${k}/${tab}'"><i class="di">${i}</i><span>${t}</span></button>`}).join('')}</div>${!x.mob?'<p class="devnote">خطوات هذا النشاط نفسها على اللابتوب والجوال.</p>':''}`;
 app.innerHTML=`<a class="back home-btn" href="#/"><span class="ha">→</span>جميع الخطوات</a><div class="shead"><h1 class="stitle" style="margin:2px 0 4px;color:var(--navy);font-size:clamp(24px,5.5vw,32px);line-height:1.3"><span class="snum" style="--b:${CL[n-1][1]}">${ar(n)}</span><span class="tt">${x.title}</span></h1><span></span></div>
 ${devs}
 <div class="tabs">${[['video','فيديو'],['pics','بالصور'],['text','خطوات']].map(([k,t])=>`<button class="${k===tab?'on':''}" onclick="location.hash='#/${n}/${dev}/${k}'"><span class="ti">${TI[k]}</span>${t}</button>`).join('')}</div>
