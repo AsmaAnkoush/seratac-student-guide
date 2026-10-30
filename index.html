@@ -143,6 +143,7 @@ body.stp .stitle{font-size:clamp(24px,4vw,36px)!important}
 .mobs img{width:100%;max-width:280px;aspect-ratio:451/976;height:auto;margin:0 auto;display:block;border-radius:22px;border:6px solid #1d1f3d;background:#f1edff}
 .tabs{grid-template-columns:repeat(auto-fit,minmax(0,1fr))!important}
 @media(max-width:420px){.tabs button{font-size:13px!important;gap:6px}.ti{width:22px;height:22px}}
+.mvid{display:flex;justify-content:center;margin-bottom:26px}.mvid video{width:100%;max-width:340px;aspect-ratio:9/16;border-radius:24px;background:#1d1f3d;display:block}
 </style></head><body>
 <img class="side sl" src="side-l.jpg" alt=""><div id="top"></div><main id="app"></main>
 <div class="toast" id="toast"></div>
@@ -159,7 +160,7 @@ app.innerHTML=`<p class="lead">يوضّح هذا الدليل خطوات است�
 <div class="grid" style="margin-top:22px">${D.map((x,i)=>{const c='';const k=CL[i];return `<a class="card st ${c}" style="--c:${k[0]};--b:${k[1]}" href="#/${x.n}"><span class="num">${ar(x.n)}</span><img src="card-${x.n}.jpg" alt=""><div class="lab"><h3>${x.short}</h3></div></a>`}).join('')}</div>`;scrollTo(0,0)}
 function step(n,tab){document.body.classList.add('stp');document.getElementById('top').innerHTML='';const x=D[n-1];if(!x)return home();tab=tab||'video';const d=S.get(),was=d.includes(n);
 const body=tab==='video'?`<div class="vp"><video preload="none" playsinline poster="poster-${n}.jpg" src="${x.video}" onclick="vt(this)"></video><div class="vc"><button class="vb" onclick="vt(this.closest('.vp').querySelector('video'))"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 4v16l13-8z" fill="currentColor"/></svg></button><input class="vr" type="range" min="0" max="1000" value="0"><span class="vt">٠:٠٠</span><button class="vf" onclick="vfs(this)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>تكبير</span></button></div></div>`
-:tab==='mob'&&x.mob?`<div class="mobs">${x.mob.map((y,k)=>`<figure><div class="t"><span class="n">${ar(k+1)}</span><p>${y.text}</p></div><img loading="lazy" decoding="async" width="451" height="976" src="${y.img}" alt=""></figure>`).join('')}</div>`
+:tab==='mob'&&x.mob?`<div class="mvid"><video controls playsinline preload="none" poster="mob-${x.mob[0].img.slice(4)}" src="mvideo-${n}.mp4"></video></div><div class="mobs">${x.mob.map((y,k)=>`<figure><div class="t"><span class="n">${ar(k+1)}</span><p>${y.text}</p></div><img loading="lazy" decoding="async" width="451" height="976" src="${y.img}" alt=""></figure>`).join('')}</div>`
 :tab==='pics'?`<div class="shots">${x.steps.map((y,k)=>`<div><div class="t"><span class="n">${ar(k+1)}</span><p>${y.text}</p></div><img loading="lazy" decoding="async" width="1400" height="678" src="${y.img}" alt=""></div>`).join('')}</div>`
 :`<ol class="list">${x.full.map((y,k)=>`<li><span class="n">${ar(k+1)}</span><span>${y}</span></li>`).join('')}</ol>`;
 app.innerHTML=`<a class="back home-btn" href="#/"><span class="ha">→</span>جميع الخطوات</a><div class="shead"><h1 class="stitle" style="margin:2px 0 4px;color:var(--navy);font-size:clamp(24px,5.5vw,32px);line-height:1.3"><span class="snum" style="--b:${CL[n-1][1]}">${ar(n)}</span><span class="tt">${x.title}</span></h1><span></span></div>
