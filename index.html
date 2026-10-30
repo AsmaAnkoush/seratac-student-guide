@@ -92,7 +92,7 @@ body.stp .pane,body.stp .list li{text-align:start}
 .vp{background:#000;border-radius:12px;overflow:hidden}.vp video{border-radius:0;cursor:pointer}
 .vp:fullscreen{display:flex;flex-direction:column;justify-content:center}.vp:fullscreen video{max-height:calc(100vh - 56px)}
 .vc{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--navy);direction:ltr}
-.vc button{border:0;background:#fff;color:var(--navy);width:36px;height:36px;border-radius:50%;font-size:15px;font-weight:800;flex:none}
+.vc button{display:grid;place-items:center;padding:0;border:0;background:#fff;color:var(--navy);width:36px;height:36px;border-radius:50%;font-size:15px;font-weight:800;flex:none}
 .vr{flex:1;accent-color:var(--pink)}.vt{display:flex;gap:4px;direction:ltr;color:#fff;font-weight:700;font-size:14px;white-space:nowrap}
 .shead{display:flex;align-items:center;justify-content:flex-start;gap:16px;padding:4px 0}
 body.stp .shead .back{justify-self:start;margin:0;white-space:nowrap}
@@ -128,6 +128,7 @@ body.stp .home-btn:hover{box-shadow:0 4px 0 #a51f62}
 body.stp .stitle{font-size:clamp(24px,4vw,36px)!important}
 .heroimg h1{white-space:nowrap}
 @media(max-width:1380px){body.stp .home-btn{position:static;display:inline-flex;margin:0 0 14px}body.stp main{display:flex;flex-direction:column}body.stp main>*{width:100%}body.stp .home-btn{width:auto;align-self:flex-start}body.stp main{padding-top:20px}}
+@media(max-width:600px){.heroimg{aspect-ratio:16/9;padding:0 14%}.heroimg h1{font-size:clamp(20px,6.2vw,26px);padding:.35em 1em;box-shadow:0 5px 0 #1b1c5e,0 8px 22px rgba(43,45,132,.35);border:3px solid #fff}}
 </style></head><body>
 <img class="side sl" src="side-l.jpg" alt=""><div id="top"></div><main id="app"></main>
 <div class="toast" id="toast"></div>
@@ -143,7 +144,7 @@ app.innerHTML=`<p class="lead">يوضّح هذا الدليل خطوات است�
 
 <div class="grid" style="margin-top:22px">${D.map((x,i)=>{const c='';const k=CL[i];return `<a class="card st ${c}" style="--c:${k[0]};--b:${k[1]}" href="#/${x.n}"><span class="num">${ar(x.n)}</span><img src="card-${x.n}.jpg" alt=""><div class="lab"><h3>${x.short}</h3></div></a>`}).join('')}</div>`;scrollTo(0,0)}
 function step(n,tab){document.body.classList.add('stp');document.getElementById('top').innerHTML='';const x=D[n-1];if(!x)return home();tab=tab||'video';const d=S.get(),was=d.includes(n);
-const body=tab==='video'?`<div class="vp"><video preload="none" playsinline poster="poster-${n}.jpg" src="${x.video}" onclick="vt(this)"></video><div class="vc"><button class="vb" onclick="vt(this.closest('.vp').querySelector('video'))">▶</button><input class="vr" type="range" min="0" max="1000" value="0"><span class="vt">٠:٠٠</span><button class="vf" onclick="vfs(this)">⛶</button></div></div>`
+const body=tab==='video'?`<div class="vp"><video preload="none" playsinline poster="poster-${n}.jpg" src="${x.video}" onclick="vt(this)"></video><div class="vc"><button class="vb" onclick="vt(this.closest('.vp').querySelector('video'))"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 4v16l13-8z" fill="currentColor"/></svg></button><input class="vr" type="range" min="0" max="1000" value="0"><span class="vt">٠:٠٠</span><button class="vf" onclick="vfs(this)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div></div>`
 :tab==='pics'?`<div class="shots">${x.steps.map((y,k)=>`<div><div class="t"><span class="n">${ar(k+1)}</span><p>${y.text}</p></div><img loading="lazy" src="${y.img}" alt=""></div>`).join('')}</div>`
 :`<ol class="list">${x.full.map((y,k)=>`<li><span class="n">${ar(k+1)}</span><span>${y}</span></li>`).join('')}</ol>`;
 app.innerHTML=`<a class="back home-btn" href="#/"><span class="ha">→</span>جميع الخطوات</a><div class="shead"><h1 class="stitle" style="margin:2px 0 4px;color:var(--navy);font-size:clamp(24px,5.5vw,32px);line-height:1.3"><span class="snum" style="--b:${CL[n-1][1]}">${ar(n)}</span><span class="tt">${x.title}</span></h1><span></span></div>
@@ -152,12 +153,13 @@ app.innerHTML=`<a class="back home-btn" href="#/"><span class="ha">→</span>ج�
 <div class="nav"><a class="btn ${n>1?'':'dis'}" href="#/${n-1}">→ السابقة</a><span style="flex:1"></span><a class="btn ${n<D.length?'':'dis'}" href="#/${n+1}">التالية ←</a></div>`;scrollTo(0,0)}
 function done(n){const d=S.get();if(!d.includes(n))d.push(n);S.set(d);toast(d.length===D.length?'أُنجزت الخطوات جميعها':'تم حفظ الإنجاز');setTimeout(()=>location.hash=n<D.length?'#/'+(n+1):'#/',700)}
 
+const IC={p:'<svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 4v16l13-8z" fill="currentColor"/></svg>',z:'<svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/></svg>',r:'<svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z" fill="currentColor"/></svg>'};
 function fm(t){t=Math.floor(t||0);return ar(Math.floor(t/60))+':'+ar(String(t%60).padStart(2,'0'))}
 function vt(v){v.paused?v.play():v.pause()}
 function vfs(b){const p=b.closest('.vp');(p.requestFullscreen||p.webkitRequestFullscreen||function(){}).call(p)}
 function vinit(){const p=document.querySelector('.vp');if(!p)return;const v=p.querySelector('video'),r=p.querySelector('.vr'),b=p.querySelector('.vb'),t=p.querySelector('.vt');
 const up=()=>{r.value=v.duration?v.currentTime/v.duration*1000:0;t.innerHTML='<b>'+fm(v.currentTime)+'</b><i>/</i><b>'+fm(v.duration)+'</b>'};
-v.addEventListener('timeupdate',up);v.addEventListener('loadedmetadata',up);v.addEventListener('play',()=>b.textContent='❚❚');v.addEventListener('pause',()=>b.textContent='▶');v.addEventListener('ended',()=>b.textContent='↻');
+v.addEventListener('timeupdate',up);v.addEventListener('loadedmetadata',up);v.addEventListener('play',()=>b.innerHTML=IC.z);v.addEventListener('pause',()=>b.innerHTML=IC.p);v.addEventListener('ended',()=>b.innerHTML=IC.r);
 r.addEventListener('input',()=>{if(v.duration)v.currentTime=r.value/1000*v.duration})}
 function route(){const p=location.hash.replace(/^#\/?/,'').split('/');p[0]?step(+p[0],p[1]):home()}
 addEventListener('hashchange',()=>{route();vinit()});route();vinit();
